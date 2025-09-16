@@ -10,11 +10,11 @@ import (
 
 // Handler оборачивает Storage для доступа к данным
 type Handler struct {
-	Store *db.Storage
+	Store StorageInterface
 }
 
 // NewHandler создает новый Handler
-func NewHandler(store *db.Storage) *Handler {
+func NewHandler(store StorageInterface) *Handler {
 	return &Handler{Store: store}
 }
 

@@ -26,8 +26,7 @@ func main() {
 	}
 	defer dbConn.Close()
 
-	// Вызов функции миграций здесь
-	// Пример если у вас миграции в пакете migrations с функцией Run()
+	// Вызов функции миграций
 	migrations.Run()
 
 	store := db.NewStorage(dbConn)
@@ -43,7 +42,7 @@ func main() {
 		r.Post("/tenders/new", h.CreateTenderHandler)
 		r.Get("/tenders", h.GetTendersHandler)
 		r.Get("/tenders/my", h.GetUserTendersHandler)
-		r.Put("/tenders/{tenderId}/status", h.ChangeTenderStatusHandler
+		r.Put("/tenders/{tenderId}/status", h.ChangeTenderStatusHandler)
 		r.Put("/tenders/{tenderId}/rollback/{version}", h.RollbackTenderHandler)
 		// предложения (bids)
 		r.Post("/bids/new", h.CreateBidHandler)
@@ -53,10 +52,9 @@ func main() {
 		r.Put("/bids/{bidId}/status", h.UpdateBidStatusHandler)
 		r.Put("/bids/{bidId}/rollback/{version}", h.RollbackBidHandler)
 		r.Put("/bids/{bidId}/submit_decision", h.SubmitBidDecisionHandler)
-		r.Get("bids/{tenderId}/reviews", h.GetBidReviewsHandler)
-		r.Put("bids/{bidsId}/feedback", h.CreateBidFeedbackHandler)
+		r.Get("/bids/{tenderId}/reviews", h.GetBidReviewsHandler)
+		r.Put("/bids/{bidId}/feedback", h.CreateBidFeedbackHandler)
 
-		// Можно дальше добавить другие маршруты
 	})
 
 	serverAddr := os.Getenv("SERVER_ADDRESS")
